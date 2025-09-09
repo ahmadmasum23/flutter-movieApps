@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie/models/movie.dart';
+import 'package:movie/state/app_state.dart';
 
 import '../../../constants.dart';
 
@@ -51,17 +52,25 @@ class TitleDurationAndFabBtn extends StatelessWidget {
             height: 64,
             width: 64,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                AppStateWidget.of(context).toggleFavorite(movie);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: kSecondaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              child: const Icon(
-                Icons.add,
-                size: 28,
-                color: Colors.white,
+              child: AnimatedBuilder(
+                animation: AppStateWidget.of(context),
+                builder: (context, _) {
+                  final bool isFav = AppStateWidget.of(context).isFavorite(movie);
+                  return Icon(
+                    isFav ? Icons.check : Icons.add,
+                    size: 20,
+                    color: Colors.white,
+                  );
+                },
               ),
             ),
           )

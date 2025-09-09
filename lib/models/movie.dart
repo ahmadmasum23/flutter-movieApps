@@ -173,4 +173,39 @@ List<Movie> movies = [
       },
     ],
   ),
+  Movie(
+    id: 5,
+    title: "Inside Out2",
+    year: 2024,
+    poster: "assets/images/poster_5.jpg",
+    backdrop: "assets/images/backdrop_5.jpg",
+    numOfRatings: 150212,
+    rating: 8.6,
+    criticsReview: 50,
+    metascoreRating: 89,
+    genre: ["Action", "Drama"],
+    plot: plotText,
+    cast: [
+      {
+        "originalName": "James Mangold",
+        "movieName": "Director",
+        "image": "assets/images/actor_1.png",
+      },
+      {
+        "originalName": "Matt Damon",
+        "movieName": "Carroll",
+        "image": "assets/images/actor_2.png",
+      },
+      {
+        "originalName": "Christian Bale",
+        "movieName": "Ken Miles",
+        "image": "assets/images/actor_3.png",
+      },
+      {
+        "originalName": "Caitriona Balfe",
+        "movieName": "Mollie",
+        "image": "assets/images/actor_4.png",
+      },
+    ],
+  ),
 ];

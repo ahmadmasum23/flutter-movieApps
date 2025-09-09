@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:movie/models/movie.dart';
+import 'package:movie/state/app_state.dart';
 import '../../../constants.dart';
 import 'movie_card.dart';
 
@@ -32,6 +33,8 @@ class _MovieCarouselState extends State<MovieCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    final AppState appState = AppStateWidget.of(context);
+    final List<Movie> filtered = appState.getFilteredMovies(movies);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
       child: AspectRatio(
@@ -44,14 +47,14 @@ class _MovieCarouselState extends State<MovieCarousel> {
           },
           controller: _pageController,
           physics: const ClampingScrollPhysics(),
-          itemCount: movies.length,
-          itemBuilder: (context, index) => buildMovieSlider(index),
+          itemCount: filtered.length,
+          itemBuilder: (context, index) => buildMovieSlider(index, filtered),
         ),
       ),
     );
   }
 
-  Widget buildMovieSlider(int index) => AnimatedBuilder(
+  Widget buildMovieSlider(int index, List<Movie> source) => AnimatedBuilder(
         animation: _pageController,
         builder: (context, child) {
           double value = 0;
@@ -64,7 +67,7 @@ class _MovieCarouselState extends State<MovieCarousel> {
             opacity: initialPage == index ? 1 : 0.4,
             child: Transform.rotate(
               angle: math.pi * value,
-              child: MovieCard(movie: movies[index]),
+              child: MovieCard(movie: source[index]),
             ),
           );
         },
