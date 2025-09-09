@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import '../constants.dart';
 
 class GenreCard extends StatelessWidget {
   final String genre;
 
   const GenreCard({Key? key, required this.genre}) : super(key: key);
+
+  double get kDefaultPadding => 16.0;
+
+  Color get kTextColor => Colors.black;
 
   @override
   Widget build(BuildContext context) {
