@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:movie/screens/home/home_screen.dart';
-import 'package:movie/state/app_state.dart';
+import 'package:movie/utils/themes.dart';
+import 'package:movie/viewmodels/home_viewmodel.dart';
+import 'package:movie/viewmodels/theme_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return AppStateWidget(
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Movie App',
-        theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: HomeScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeViewModel()),
+      ],
+      child: Consumer<ThemeViewModel>(
+        builder: (context, themeViewModel, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Movie App',
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeViewModel.themeMode,
+            home: HomeScreen(),
+          );
+        },
       ),
     );
   }
